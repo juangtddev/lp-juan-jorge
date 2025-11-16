@@ -16,23 +16,13 @@
       rel="stylesheet"
     />
 
-    <!-- Lucide Icons (CORRIGIDO) -->
+    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 
     <style>
       /* Estilos personalizados */
       body {
         font-family: 'Inter', sans-serif;
-      }
-
-      /* Oculta todos os steps por padrão */
-      .form-step {
-        display: none;
-      }
-
-      /* Mostra o step ativo */
-      .form-step.active {
-        display: block;
       }
 
       /* Animação de fade-in */
@@ -47,7 +37,7 @@
         }
       }
 
-      .form-step.active {
+      .modal-body-simple {
         animation: fadeIn 0.3s ease-out;
       }
 
@@ -71,6 +61,30 @@
         background-color: #4f46e5;
         border-radius: 10px;
         border: 2px solid #3730a3;
+      }
+
+      /* Estilo para o Botão Flutuante do WhatsApp */
+      .whatsapp-float {
+        position: fixed;
+        width: 60px;
+        height: 60px;
+        bottom: 25px;
+        right: 25px;
+        background-color: #25d366;
+        color: #fff;
+        border-radius: 50px;
+        text-align: center;
+        font-size: 30px;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+        z-index: 40; /* Abaixo do modal que é z-50 */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.3s ease;
+      }
+
+      .whatsapp-float:hover {
+        transform: scale(1.1);
       }
     </style>
   </head>
@@ -99,24 +113,32 @@
           responsiva e otimizada para o seu negócio crescer.
         </p>
 
-        <a
-          href="#briefing-modal"
-          onclick="openModal()"
-          class="inline-block bg-indigo-600 text-white text-lg font-bold px-10 py-4 rounded-lg shadow-xl transform transition-transform duration-300 hover:scale-105 hover:bg-indigo-500"
-        >
-          Detalhar Meu Projeto
-          <span class="ml-2">&rarr;</span>
-        </a>
+        <!-- (ALTERADO) Dois botões claros -->
+        <div class="flex flex-col sm:flex-row sm:justify-center gap-4">
+          <a
+            href="#briefing-modal"
+            onclick="openModal()"
+            class="inline-block bg-indigo-600 text-white text-lg font-bold px-10 py-4 rounded-lg shadow-xl transform transition-transform duration-300 hover:scale-105 hover:bg-indigo-500"
+          >
+            <i
+              data-lucide="file-text"
+              class="inline-block w-5 h-5 mr-2 -mt-1"
+            ></i>
+            Quero Detalhar o Projeto
+          </a>
 
-        <p class="text-sm text-gray-400 mt-4">
-          Preencha o questionário ou
           <a
             href="#"
             onclick="skipToWhatsApp(event)"
-            class="text-indigo-300 font-semibold hover:underline"
-            >fale comigo direto no WhatsApp</a
-          >.
-        </p>
+            class="inline-block bg-green-600 text-white text-lg font-bold px-10 py-4 rounded-lg shadow-xl transform transition-transform duration-300 hover:scale-105 hover:bg-green-500"
+          >
+            <i
+              data-lucide="message-circle"
+              class="inline-block w-5 h-5 mr-2 -mt-1"
+            ></i>
+            Chamar no WhatsApp Agora
+          </a>
+        </div>
       </div>
     </header>
 
@@ -216,7 +238,7 @@
       </div>
     </section>
 
-    <!-- ===== O que é uma Landing Page? (NOVA SEÇÃO) ===== -->
+    <!-- ===== O que é uma Landing Page? ===== -->
     <section class="bg-gray-900 py-20">
       <div class="container mx-auto px-6 max-w-5xl">
         <div class="text-center mb-16">
@@ -324,7 +346,7 @@
           <div class="md:w-1/2 mt-10 md:mt-0">
             <!-- Placeholder de imagem. Troque 'Juan+Jorge+Developer' por uma foto sua se desejar -->
             <img
-              src="/juan-jorge.jpeg"
+              src="juan-jorge.jpeg"
               alt="Juan Daniel Jorge, Desenvolvedor Front-end"
               class="rounded-lg shadow-2xl aspect-square object-cover border-4 border-indigo-900/50"
             />
@@ -340,15 +362,19 @@
           Pronto para decolar seu projeto?
         </h2>
         <p class="text-indigo-200 text-lg max-w-2xl mx-auto mb-8">
-          Não perca esta oportunidade. Preencha o questionário e vamos
-          transformar sua ideia em uma Landing Page de sucesso.
+          Não perca esta oportunidade. Fale comigo agora e vamos transformar sua
+          ideia em uma Landing Page de sucesso.
         </p>
         <a
-          href="#briefing-modal"
-          onclick="openModal()"
+          href="#"
+          onclick="skipToWhatsApp(event)"
           class="inline-block bg-white text-indigo-700 text-lg font-bold px-10 py-4 rounded-lg shadow-xl transform transition-transform duration-300 hover:scale-105 hover:bg-gray-100"
         >
-          Detalhar Meu Projeto Agora
+          <i
+            data-lucide="message-circle"
+            class="inline-block w-5 h-5 mr-2 -mt-1"
+          ></i>
+          Chamar no WhatsApp
         </a>
       </div>
     </section>
@@ -366,9 +392,32 @@
       </div>
     </footer>
 
+    <!-- (NOVO) Botão Flutuante do WhatsApp -->
+    <a
+      href="#"
+      onclick="skipToWhatsApp(event)"
+      class="whatsapp-float"
+      aria-label="Fale Conosco no WhatsApp"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="30"
+        height="30"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="lucide lucide-message-circle"
+      >
+        <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
+      </svg>
+    </a>
+
     <!-- 
     ================================================================
-    MODAL DO FORMULÁRIO (QUESTIONÁRIO)
+    MODAL DO FORMULÁRIO (SIMPLIFICADO)
     ================================================================
     -->
     <div
@@ -377,7 +426,7 @@
       onclick="closeModalOutside(event)"
     >
       <div
-        class="bg-gray-900 border border-indigo-900 w-full max-w-3xl rounded-2xl shadow-2xl overflow-hidden flex flex-col"
+        class="bg-gray-900 border border-indigo-900 w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden flex flex-col"
         style="max-height: 95vh"
       >
         <!-- Modal Header -->
@@ -385,7 +434,7 @@
           class="flex items-center justify-between p-5 border-b border-gray-700/50"
         >
           <h3 class="text-xl font-semibold text-white">
-            Detalhes do Projeto: Landing Page
+            Iniciar Contato (Projeto R$ 120)
           </h3>
           <button
             onclick="closeModal()"
@@ -395,793 +444,97 @@
           </button>
         </div>
 
-        <!-- Progress Bar -->
-        <div class="px-6 pt-5">
-          <div class="w-full bg-gray-700 rounded-full h-2.5">
-            <div
-              id="progress-bar"
-              class="bg-indigo-600 h-2.5 rounded-full"
-              style="width: 16.6%; transition: width 0.3s ease-in-out"
-            ></div>
-          </div>
-          <p id="progress-text" class="text-sm text-center text-gray-400 mt-2">
-            Etapa 1 de 6
-          </p>
-        </div>
-
         <!-- Modal Body (com scroll) -->
         <form
           id="briefing-form"
-          class="modal-body overflow-y-auto p-6 md:p-8 space-y-6"
+          class="modal-body modal-body-simple overflow-y-auto p-6 md:p-8 space-y-5"
         >
-          <!-- ===== Etapa 1: Informações Básicas ===== -->
-          <div id="step-1" class="form-step active space-y-5">
-            <h4 class="text-lg font-semibold text-indigo-300">
-              Etapa 1: Informações Básicas
-            </h4>
+          <p class="text-gray-300 text-sm">
+            Preencha os campos abaixo para adiantar nosso papo. Ao enviar, você
+            já será direcionado para o meu WhatsApp.
+          </p>
 
-            <div>
-              <label
-                for="empresa"
-                class="block text-sm font-medium text-gray-300 mb-1"
-                >Nome da Empresa/Negócio</label
-              >
-              <input
-                type="text"
-                id="empresa"
-                name="empresa"
-                class="w-full bg-gray-800 border border-gray-700 text-white rounded-lg px-4 py-2.5 focus:ring-indigo-500 focus:border-indigo-500"
-                placeholder="Minha Empresa Incrível"
-              />
-            </div>
-
-            <div class="grid sm:grid-cols-2 gap-4">
-              <div>
-                <label
-                  for="nome"
-                  class="block text-sm font-medium text-gray-300 mb-1"
-                  >Seu Nome</label
-                >
-                <input
-                  type="text"
-                  id="nome"
-                  name="nome"
-                  class="w-full bg-gray-800 border border-gray-700 text-white rounded-lg px-4 py-2.5 focus:ring-indigo-500 focus:border-indigo-500"
-                  placeholder="Seu nome completo"
-                />
-              </div>
-              <div>
-                <label
-                  for="whatsapp"
-                  class="block text-sm font-medium text-gray-300 mb-1"
-                  >Seu Telefone/WhatsApp</label
-                >
-                <input
-                  type="tel"
-                  id="whatsapp"
-                  name="whatsapp"
-                  class="w-full bg-gray-800 border border-gray-700 text-white rounded-lg px-4 py-2.5 focus:ring-indigo-500 focus:border-indigo-500"
-                  placeholder="(11) 99999-8888"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label
-                for="email"
-                class="block text-sm font-medium text-gray-300 mb-1"
-                >E-mail de Contato</label
-              >
-              <input
-                type="email"
-                id="email"
-                name="email"
-                class="w-full bg-gray-800 border border-gray-700 text-white rounded-lg px-4 py-2.5 focus:ring-indigo-500 focus:border-indigo-500"
-                placeholder="seu@email.com"
-              />
-            </div>
-
-            <div>
-              <label
-                for="produto"
-                class="block text-sm font-medium text-gray-300 mb-1"
-                >Qual é o produto, serviço ou oferta principal que esta landing
-                page irá promover?</label
-              >
-              <textarea
-                id="produto"
-                name="produto"
-                rows="3"
-                class="w-full bg-gray-800 border border-gray-700 text-white rounded-lg px-4 py-2.5 focus:ring-indigo-500 focus:border-indigo-500"
-                placeholder="Ex: Venda do e-book 'Receitas Fit', inscrição para o webinar 'Investindo do Zero', etc."
-              ></textarea>
-            </div>
+          <div>
+            <label
+              for="nome"
+              class="block text-sm font-medium text-gray-300 mb-1"
+              >Seu Nome</label
+            >
+            <input
+              type="text"
+              id="nome"
+              name="nome"
+              class="w-full bg-gray-800 border border-gray-700 text-white rounded-lg px-4 py-2.5 focus:ring-indigo-500 focus:border-indigo-500"
+              placeholder="Seu nome completo"
+            />
           </div>
 
-          <!-- ===== Etapa 2: Objetivo e Conversão ===== -->
-          <div id="step-2" class="form-step space-y-5">
-            <h4 class="text-lg font-semibold text-indigo-300">
-              Etapa 2: Objetivo e Conversão
-            </h4>
-
-            <div>
-              <label class="block text-sm font-medium text-gray-300 mb-2"
-                >Qual é o OBJETIVO PRINCIPAL da página?</label
-              >
-              <div class="space-y-2">
-                <label
-                  class="flex items-center p-3 bg-gray-800 rounded-lg border border-gray-700 hover:bg-gray-700/50"
-                >
-                  <input
-                    type="radio"
-                    name="objetivo"
-                    value="Capturar leads"
-                    class="h-4 w-4 text-indigo-600 bg-gray-700 border-gray-600 focus:ring-indigo-500"
-                  />
-                  <span class="ml-3 text-sm text-gray-200"
-                    >Capturar leads (nome, e-mail, telefone)</span
-                  >
-                </label>
-                <label
-                  class="flex items-center p-3 bg-gray-800 rounded-lg border border-gray-700 hover:bg-gray-700/50"
-                >
-                  <input
-                    type="radio"
-                    name="objetivo"
-                    value="Vender um produto/serviço"
-                    class="h-4 w-4 text-indigo-600 bg-gray-700 border-gray-600 focus:ring-indigo-500"
-                  />
-                  <span class="ml-3 text-sm text-gray-200"
-                    >Vender um produto/serviço diretamente</span
-                  >
-                </label>
-                <label
-                  class="flex items-center p-3 bg-gray-800 rounded-lg border border-gray-700 hover:bg-gray-700/50"
-                >
-                  <input
-                    type="radio"
-                    name="objetivo"
-                    value="Levar para outra página"
-                    class="h-4 w-4 text-indigo-600 bg-gray-700 border-gray-600 focus:ring-indigo-500"
-                  />
-                  <span class="ml-3 text-sm text-gray-200"
-                    >Levar o usuário para outra página (ex: app, site
-                    principal)</span
-                  >
-                </label>
-                <label
-                  class="flex items-center p-3 bg-gray-800 rounded-lg border border-gray-700 hover:bg-gray-700/50"
-                >
-                  <input
-                    type="radio"
-                    name="objetivo"
-                    value="Inscrição em evento/webinar"
-                    class="h-4 w-4 text-indigo-600 bg-gray-700 border-gray-600 focus:ring-indigo-500"
-                  />
-                  <span class="ml-3 text-sm text-gray-200"
-                    >Inscrição em evento/webinar</span
-                  >
-                </label>
-                <div class="flex items-center">
-                  <input
-                    type="radio"
-                    name="objetivo"
-                    value="Outro"
-                    class="h-4 w-4 text-indigo-600 bg-gray-700 border-gray-600 focus:ring-indigo-500"
-                  />
-                  <input
-                    type="text"
-                    name="objetivo_outro"
-                    class="flex-1 ml-3 bg-gray-800 border border-gray-700 text-white rounded-lg px-3 py-2 text-sm focus:ring-indigo-500 focus:border-indigo-500"
-                    placeholder="Outro (explique)"
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <label
-                for="cta"
-                class="block text-sm font-medium text-gray-300 mb-1"
-                >Qual é a AÇÃO (Call to Action - CTA) mais importante que o
-                visitante deve tomar?</label
-              >
-              <input
-                type="text"
-                id="cta"
-                name="cta"
-                class="w-full bg-gray-800 border border-gray-700 text-white rounded-lg px-4 py-2.5 focus:ring-indigo-500 focus:border-indigo-500"
-                placeholder="Ex: 'Baixar E-book', 'Comprar Agora', 'Agendar Reunião'"
-              />
-            </div>
-
-            <div>
-              <label
-                for="sucesso"
-                class="block text-sm font-medium text-gray-300 mb-1"
-                >Como você medirá o sucesso desta página?</label
-              >
-              <input
-                type="text"
-                id="sucesso"
-                name="sucesso"
-                class="w-full bg-gray-800 border border-gray-700 text-white rounded-lg px-4 py-2.5 focus:ring-indigo-500 focus:border-indigo-500"
-                placeholder="Ex: 'Número de leads', 'Taxa de conversão'"
-              />
-            </div>
+          <div>
+            <label
+              for="whatsapp"
+              class="block text-sm font-medium text-gray-300 mb-1"
+              >Seu Telefone/WhatsApp</label
+            >
+            <input
+              type="tel"
+              id="whatsapp"
+              name="whatsapp"
+              class="w-full bg-gray-800 border border-gray-700 text-white rounded-lg px-4 py-2.5 focus:ring-indigo-500 focus:border-indigo-500"
+              placeholder="(11) 99999-8888"
+            />
           </div>
 
-          <!-- ===== Etapa 3: Público-Alvo ===== -->
-          <div id="step-3" class="form-step space-y-5">
-            <h4 class="text-lg font-semibold text-indigo-300">
-              Etapa 3: Público-Alvo
-            </h4>
-
-            <div>
-              <label
-                for="publico"
-                class="block text-sm font-medium text-gray-300 mb-1"
-                >Quem é o seu cliente ideal?</label
-              >
-              <textarea
-                id="publico"
-                name="publico"
-                rows="3"
-                class="w-full bg-gray-800 border border-gray-700 text-white rounded-lg px-4 py-2.5 focus:ring-indigo-500 focus:border-indigo-500"
-                placeholder="Descreva em termos de idade, gênero, interesses, profissão, etc."
-              ></textarea>
-            </div>
-
-            <div>
-              <label
-                for="dor"
-                class="block text-sm font-medium text-gray-300 mb-1"
-                >Qual é a principal "dor" ou problema que seu público enfrenta e
-                que esta oferta resolve?</label
-              >
-              <textarea
-                id="dor"
-                name="dor"
-                rows="3"
-                class="w-full bg-gray-800 border border-gray-700 text-white rounded-lg px-4 py-2.5 focus:ring-indigo-500 focus:border-indigo-500"
-                placeholder="Ex: 'Não conseguem organizar as finanças', 'Perdem muito tempo em tarefas manuais', etc."
-              ></textarea>
-            </div>
-
-            <div>
-              <label
-                for="beneficios"
-                class="block text-sm font-medium text-gray-300 mb-1"
-                >Quais são os principais benefícios que seu público terá ao
-                aceitar a oferta?</label
-              >
-              <textarea
-                id="beneficios"
-                name="beneficios"
-                rows="3"
-                class="w-full bg-gray-800 border border-gray-700 text-white rounded-lg px-4 py-2.5 focus:ring-indigo-500 focus:border-indigo-500"
-                placeholder="Ex: 'Mais tempo livre', 'Economia de R$ X por mês', etc."
-              ></textarea>
-            </div>
+          <div>
+            <label
+              for="empresa"
+              class="block text-sm font-medium text-gray-300 mb-1"
+              >Nome da Empresa/Negócio (Opcional)</label
+            >
+            <input
+              type="text"
+              id="empresa"
+              name="empresa"
+              class="w-full bg-gray-800 border border-gray-700 text-white rounded-lg px-4 py-2.5 focus:ring-indigo-500 focus:border-indigo-500"
+              placeholder="Minha Empresa Incrível"
+            />
           </div>
 
-          <!-- ===== Etapa 4: Design e Identidade Visual ===== -->
-          <div id="step-4" class="form-step space-y-5">
-            <h4 class="text-lg font-semibold text-indigo-300">
-              Etapa 4: Design e Identidade
-            </h4>
-
-            <div>
-              <label class="block text-sm font-medium text-gray-300 mb-2"
-                >Você já possui um manual de marca (logotipo, cores,
-                fontes)?</label
-              >
-              <div class="flex gap-4">
-                <label
-                  class="flex items-center p-3 w-full bg-gray-800 rounded-lg border border-gray-700 hover:bg-gray-700/50"
-                >
-                  <input
-                    type="radio"
-                    name="manual_marca"
-                    value="Sim"
-                    class="h-4 w-4 text-indigo-600 bg-gray-700 border-gray-600 focus:ring-indigo-500"
-                  />
-                  <span class="ml-3 text-sm text-gray-200"
-                    >Sim (enviarei pelo WhatsApp)</span
-                  >
-                </label>
-                <label
-                  class="flex items-center p-3 w-full bg-gray-800 rounded-lg border border-gray-700 hover:bg-gray-700/50"
-                >
-                  <input
-                    type="radio"
-                    name="manual_marca"
-                    value="Não"
-                    class="h-4 w-4 text-indigo-600 bg-gray-700 border-gray-600 focus:ring-indigo-500"
-                  />
-                  <span class="ml-3 text-sm text-gray-200"
-                    >Não (vamos definir)</span
-                  >
-                </label>
-              </div>
-            </div>
-
-            <div>
-              <label class="block text-sm font-medium text-gray-300 mb-2"
-                >Quais sensações e valores a página deve transmitir?</label
-              >
-              <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                <label
-                  class="flex items-center p-2 bg-gray-800 rounded-lg border border-gray-700/50 hover:bg-gray-700/50"
-                >
-                  <input
-                    type="checkbox"
-                    name="sensacoes"
-                    value="Confiança"
-                    class="h-4 w-4 text-indigo-600 bg-gray-700 border-gray-600 rounded focus:ring-indigo-500"
-                  />
-                  <span class="ml-2 text-sm text-gray-200">Confiança</span>
-                </label>
-                <label
-                  class="flex items-center p-2 bg-gray-800 rounded-lg border border-gray-700/50 hover:bg-gray-700/50"
-                >
-                  <input
-                    type="checkbox"
-                    name="sensacoes"
-                    value="Modernidade"
-                    class="h-4 w-4 text-indigo-600 bg-gray-700 border-gray-600 rounded focus:ring-indigo-500"
-                  />
-                  <span class="ml-2 text-sm text-gray-200">Modernidade</span>
-                </label>
-                <label
-                  class="flex items-center p-2 bg-gray-800 rounded-lg border border-gray-700/50 hover:bg-gray-700/50"
-                >
-                  <input
-                    type="checkbox"
-                    name="sensacoes"
-                    value="Urgência"
-                    class="h-4 w-4 text-indigo-600 bg-gray-700 border-gray-600 rounded focus:ring-indigo-500"
-                  />
-                  <span class="ml-2 text-sm text-gray-200">Urgência</span>
-                </label>
-                <label
-                  class="flex items-center p-2 bg-gray-800 rounded-lg border border-gray-700/50 hover:bg-gray-700/50"
-                >
-                  <input
-                    type="checkbox"
-                    name="sensacoes"
-                    value="Diversão"
-                    class="h-4 w-4 text-indigo-600 bg-gray-700 border-gray-600 rounded focus:ring-indigo-500"
-                  />
-                  <span class="ml-2 text-sm text-gray-200">Diversão</span>
-                </label>
-                <label
-                  class="flex items-center p-2 bg-gray-800 rounded-lg border border-gray-700/50 hover:bg-gray-700/50"
-                >
-                  <input
-                    type="checkbox"
-                    name="sensacoes"
-                    value="Seriedade"
-                    class="h-4 w-4 text-indigo-600 bg-gray-700 border-gray-600 rounded focus:ring-indigo-500"
-                  />
-                  <span class="ml-2 text-sm text-gray-200">Seriedade</span>
-                </label>
-                <label
-                  class="flex items-center p-2 bg-gray-800 rounded-lg border border-gray-700/50 hover:bg-gray-700/50"
-                >
-                  <input
-                    type="checkbox"
-                    name="sensacoes"
-                    value="Exclusividade"
-                    class="h-4 w-4 text-indigo-600 bg-gray-700 border-gray-600 rounded focus:ring-indigo-500"
-                  />
-                  <span class="ml-2 text-sm text-gray-200">Exclusividade</span>
-                </label>
-              </div>
-            </div>
-
-            <div>
-              <label
-                for="referencias"
-                class="block text-sm font-medium text-gray-300 mb-1"
-                >Cite 2 ou 3 links de sites ou LPs que você GOSTA</label
-              >
-              <textarea
-                id="referencias"
-                name="referencias"
-                rows="2"
-                class="w-full bg-gray-800 border border-gray-700 text-white rounded-lg px-4 py-2.5 focus:ring-indigo-500 focus:border-indigo-500"
-                placeholder="Cole os links aqui (ex: https://site.com)"
-              ></textarea>
-            </div>
-            <div>
-              <label
-                for="concorrentes"
-                class="block text-sm font-medium text-gray-300 mb-1"
-                >Cite 1 ou 2 links de concorrentes</label
-              >
-              <textarea
-                id="concorrentes"
-                name="concorrentes"
-                rows="2"
-                class="w-full bg-gray-800 border border-gray-700 text-white rounded-lg px-4 py-2.5 focus:ring-indigo-500 focus:border-indigo-500"
-                placeholder="Cole os links aqui (ex: https://concorrente.com)"
-              ></textarea>
-            </div>
-          </div>
-
-          <!-- ===== Etapa 5: Conteúdo e Estrutura ===== -->
-          <div id="step-5" class="form-step space-y-5">
-            <h4 class="text-lg font-semibold text-indigo-300">
-              Etapa 5: Conteúdo e Estrutura
-            </h4>
-
-            <div>
-              <label class="block text-sm font-medium text-gray-300 mb-2"
-                >Quem fornecerá o conteúdo (textos, imagens, vídeos)?</label
-              >
-              <div class="space-y-2">
-                <label
-                  class="flex items-center p-3 bg-gray-800 rounded-lg border border-gray-700 hover:bg-gray-700/50"
-                >
-                  <input
-                    type="radio"
-                    name="conteudo"
-                    value="Cliente fornece tudo"
-                    class="h-4 w-4 text-indigo-600 bg-gray-700 border-gray-600 focus:ring-indigo-500"
-                  />
-                  <span class="ml-3 text-sm text-gray-200"
-                    >Eu (cliente) vou fornecer tudo pronto.</span
-                  >
-                </label>
-                <label
-                  class="flex items-center p-3 bg-gray-800 rounded-lg border border-gray-700 hover:bg-gray-700/50"
-                >
-                  <input
-                    type="radio"
-                    name="conteudo"
-                    value="Dev busca imagens"
-                    class="h-4 w-4 text-indigo-600 bg-gray-700 border-gray-600 focus:ring-indigo-500"
-                  />
-                  <span class="ml-3 text-sm text-gray-200"
-                    >Você (Juan) deve criar/buscar imagens.</span
-                  >
-                </label>
-                <label
-                  class="flex items-center p-3 bg-gray-800 rounded-lg border border-gray-700 hover:bg-gray-700/50"
-                >
-                  <input
-                    type="radio"
-                    name="conteudo"
-                    value="Dev ajuda no copy"
-                    class="h-4 w-4 text-indigo-600 bg-gray-700 border-gray-600 focus:ring-indigo-500"
-                  />
-                  <span class="ml-3 text-sm text-gray-200"
-                    >Você (Juan) deve me ajudar a escrever os textos
-                    (copywriting).</span
-                  >
-                </label>
-              </div>
-            </div>
-
-            <div>
-              <label class="block text-sm font-medium text-gray-300 mb-2"
-                >Quais seções você imagina para a página?</label
-              >
-              <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                <label
-                  class="flex items-center p-2 bg-gray-800 rounded-lg border border-gray-700/50 hover:bg-gray-700/50"
-                >
-                  <input
-                    type="checkbox"
-                    name="secoes"
-                    value="Header"
-                    class="h-4 w-4 text-indigo-600 bg-gray-700 border-gray-600 rounded focus:ring-indigo-500"
-                  />
-                  <span class="ml-2 text-sm text-gray-200">Header (Topo)</span>
-                </label>
-                <label
-                  class="flex items-center p-2 bg-gray-800 rounded-lg border border-gray-700/50 hover:bg-gray-700/50"
-                >
-                  <input
-                    type="checkbox"
-                    name="secoes"
-                    value="Sobre a oferta"
-                    class="h-4 w-4 text-indigo-600 bg-gray-700 border-gray-600 rounded focus:ring-indigo-500"
-                  />
-                  <span class="ml-2 text-sm text-gray-200">Sobre a oferta</span>
-                </label>
-                <label
-                  class="flex items-center p-2 bg-gray-800 rounded-lg border border-gray-700/50 hover:bg-gray-700/50"
-                >
-                  <input
-                    type="checkbox"
-                    name="secoes"
-                    value="Benefícios"
-                    class="h-4 w-4 text-indigo-600 bg-gray-700 border-gray-600 rounded focus:ring-indigo-500"
-                  />
-                  <span class="ml-2 text-sm text-gray-200">Benefícios</span>
-                </label>
-                <label
-                  class="flex items-center p-2 bg-gray-800 rounded-lg border border-gray-700/50 hover:bg-gray-700/50"
-                >
-                  <input
-                    type="checkbox"
-                    name="secoes"
-                    value="Para quem é"
-                    class="h-4 w-4 text-indigo-600 bg-gray-700 border-gray-600 rounded focus:ring-indigo-500"
-                  />
-                  <span class="ml-2 text-sm text-gray-200">Para quem é</span>
-                </label>
-                <label
-                  class="flex items-center p-2 bg-gray-800 rounded-lg border border-gray-700/50 hover:bg-gray-700/50"
-                >
-                  <input
-                    type="checkbox"
-                    name="secoes"
-                    value="Depoimentos"
-                    class="h-4 w-4 text-indigo-600 bg-gray-700 border-gray-600 rounded focus:ring-indigo-500"
-                  />
-                  <span class="ml-2 text-sm text-gray-200">Depoimentos</span>
-                </label>
-                <label
-                  class="flex items-center p-2 bg-gray-800 rounded-lg border border-gray-700/50 hover:bg-gray-700/50"
-                >
-                  <input
-                    type="checkbox"
-                    name="secoes"
-                    value="Sobre a empresa"
-                    class="h-4 w-4 text-indigo-600 bg-gray-700 border-gray-600 rounded focus:ring-indigo-500"
-                  />
-                  <span class="ml-2 text-sm text-gray-200"
-                    >Sobre a empresa</span
-                  >
-                </label>
-                <label
-                  class="flex items-center p-2 bg-gray-800 rounded-lg border border-gray-700/50 hover:bg-gray-700/50"
-                >
-                  <input
-                    type="checkbox"
-                    name="secoes"
-                    value="FAQ"
-                    class="h-4 w-4 text-indigo-600 bg-gray-700 border-gray-600 rounded focus:ring-indigo-500"
-                  />
-                  <span class="ml-2 text-sm text-gray-200">FAQ</span>
-                </label>
-                <label
-                  class="flex items-center p-2 bg-gray-800 rounded-lg border border-gray-700/50 hover:bg-gray-700/50"
-                >
-                  <input
-                    type="checkbox"
-                    name="secoes"
-                    value="Preços"
-                    class="h-4 w-4 text-indigo-600 bg-gray-700 border-gray-600 rounded focus:ring-indigo-500"
-                  />
-                  <span class="ml-2 text-sm text-gray-200"
-                    >Preços / Planos</span
-                  >
-                </label>
-                <label
-                  class="flex items-center p-2 bg-gray-800 rounded-lg border border-gray-700/50 hover:bg-gray-700/50"
-                >
-                  <input
-                    type="checkbox"
-                    name="secoes"
-                    value="Garantia"
-                    class="h-4 w-4 text-indigo-600 bg-gray-700 border-gray-600 rounded focus:ring-indigo-500"
-                  />
-                  <span class="ml-2 text-sm text-gray-200">Garantia</span>
-                </label>
-              </div>
-              <input
-                type="text"
-                name="secoes_outra"
-                class="mt-2 w-full bg-gray-800 border border-gray-700 text-white rounded-lg px-3 py-2 text-sm focus:ring-indigo-500 focus:border-indigo-500"
-                placeholder="Outra seção (especifique)"
-              />
-            </div>
-
-            <div>
-              <label
-                for="depoimentos"
-                class="block text-sm font-medium text-gray-300 mb-1"
-                >Você já tem depoimentos de clientes que podem ser
-                usados?</label
-              >
-              <textarea
-                id="depoimentos"
-                name="depoimentos"
-                rows="2"
-                class="w-full bg-gray-800 border border-gray-700 text-white rounded-lg px-4 py-2.5 focus:ring-indigo-500 focus:border-indigo-500"
-                placeholder="Se sim, pode colar aqui ou me enviar depois."
-              ></textarea>
-            </div>
-          </div>
-
-          <!-- ===== Etapa 6: Questões Técnicas ===== -->
-          <div id="step-6" class="form-step space-y-5">
-            <h4 class="text-lg font-semibold text-indigo-300">
-              Etapa 6: Detalhes Finais
-            </h4>
-
-            <div class="grid sm:grid-cols-2 gap-4">
-              <div>
-                <label class="block text-sm font-medium text-gray-300 mb-2"
-                  >Já possui domínio?</label
-                >
-                <div class="flex gap-4">
-                  <label
-                    class="flex items-center p-3 w-full bg-gray-800 rounded-lg border border-gray-700 hover:bg-gray-700/50"
-                  >
-                    <input
-                      type="radio"
-                      name="dominio"
-                      value="Sim"
-                      class="h-4 w-4 text-indigo-600 bg-gray-700 border-gray-600 focus:ring-indigo-500"
-                    />
-                    <span class="ml-3 text-sm text-gray-200">Sim</span>
-                  </label>
-                  <label
-                    class="flex items-center p-3 w-full bg-gray-800 rounded-lg border border-gray-700 hover:bg-gray-700/50"
-                  >
-                    <input
-                      type="radio"
-                      name="dominio"
-                      value="Não"
-                      class="h-4 w-4 text-indigo-600 bg-gray-700 border-gray-600 focus:ring-indigo-500"
-                    />
-                    <span class="ml-3 text-sm text-gray-200">Não</span>
-                  </label>
-                </div>
-              </div>
-              <div>
-                <label class="block text-sm font-medium text-gray-300 mb-2"
-                  >Já possui hospedagem?</label
-                >
-                <div class="flex gap-4">
-                  <label
-                    class="flex items-center p-3 w-full bg-gray-800 rounded-lg border border-gray-700 hover:bg-gray-700/50"
-                  >
-                    <input
-                      type="radio"
-                      name="hospedagem"
-                      value="Sim"
-                      class="h-4 w-4 text-indigo-600 bg-gray-700 border-gray-600 focus:ring-indigo-500"
-                    />
-                    <span class="ml-3 text-sm text-gray-200">Sim</span>
-                  </label>
-                  <label
-                    class="flex items-center p-3 w-full bg-gray-800 rounded-lg border border-gray-700 hover:bg-gray-700/50"
-                  >
-                    <input
-                      type="radio"
-                      name="hospedagem"
-                      value="Não"
-                      class="h-4 w-4 text-indigo-600 bg-gray-700 border-gray-600 focus:ring-indigo-500"
-                    />
-                    <span class="ml-3 text-sm text-gray-200">Não</span>
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <label class="block text-sm font-medium text-gray-300 mb-2"
-                >A página precisará de integração com alguma ferramenta?</label
-              >
-              <div class="grid grid-cols-2 gap-2">
-                <label
-                  class="flex items-center p-2 bg-gray-800 rounded-lg border border-gray-700/50 hover:bg-gray-700/50"
-                >
-                  <input
-                    type="checkbox"
-                    name="integracoes"
-                    value="E-mail Marketing"
-                    class="h-4 w-4 text-indigo-600 bg-gray-700 border-gray-600 rounded focus:ring-indigo-500"
-                  />
-                  <span class="ml-2 text-sm text-gray-200"
-                    >E-mail Marketing</span
-                  >
-                </label>
-                <label
-                  class="flex items-center p-2 bg-gray-800 rounded-lg border border-gray-700/50 hover:bg-gray-700/50"
-                >
-                  <input
-                    type="checkbox"
-                    name="integracoes"
-                    value="Google Analytics"
-                    class="h-4 w-4 text-indigo-600 bg-gray-700 border-gray-600 rounded focus:ring-indigo-500"
-                  />
-                  <span class="ml-2 text-sm text-gray-200"
-                    >Google Analytics</span
-                  >
-                </label>
-                <label
-                  class="flex items-center p-2 bg-gray-800 rounded-lg border border-gray-700/50 hover:bg-gray-700/50"
-                >
-                  <input
-                    type="checkbox"
-                    name="integracoes"
-                    value="Pixel Facebook/Google"
-                    class="h-4 w-4 text-indigo-600 bg-gray-700 border-gray-600 rounded focus:ring-indigo-500"
-                  />
-                  <span class="ml-2 text-sm text-gray-200">Pixel Ads</span>
-                </label>
-                <label
-                  class="flex items-center p-2 bg-gray-800 rounded-lg border border-gray-700/50 hover:bg-gray-700/50"
-                >
-                  <input
-                    type="checkbox"
-                    name="integracoes"
-                    value="Pagamento"
-                    class="h-4 w-4 text-indigo-600 bg-gray-700 border-gray-600 rounded focus:ring-indigo-500"
-                  />
-                  <span class="ml-2 text-sm text-gray-200"
-                    >Meio de Pagamento</span
-                  >
-                </label>
-              </div>
-              <input
-                type="text"
-                name="integracoes_outra"
-                class="mt-2 w-full bg-gray-800 border border-gray-700 text-white rounded-lg px-3 py-2 text-sm focus:ring-indigo-500 focus:border-indigo-500"
-                placeholder="Outra integração (especifique)"
-              />
-            </div>
-
-            <div>
-              <label
-                for="prazo"
-                class="block text-sm font-medium text-gray-300 mb-1"
-                >Qual é o prazo ideal para esta landing page estar no ar?</label
-              >
-              <input
-                type="text"
-                id="prazo"
-                name="prazo"
-                class="w-full bg-gray-800 border border-gray-700 text-white rounded-lg px-4 py-2.5 focus:ring-indigo-500 focus:border-indigo-500"
-                placeholder="Ex: '1 semana', 'Até o dia 20', 'O mais rápido possível'"
-              />
-            </div>
+          <div>
+            <label
+              for="ideia"
+              class="block text-sm font-medium text-gray-300 mb-1"
+              >Qual é a sua ideia/necessidade?</label
+            >
+            <textarea
+              id="ideia"
+              name="ideia"
+              rows="3"
+              class="w-full bg-gray-800 border border-gray-700 text-white rounded-lg px-4 py-2.5 focus:ring-indigo-500 focus:border-indigo-500"
+              placeholder="Ex: 'Quero uma página para vender meu e-book', 'Preciso de uma página para capturar contatos para meu curso', etc."
+            ></textarea>
           </div>
         </form>
 
         <!-- Modal Footer (Navegação) -->
         <div
-          class="flex flex-col md:flex-row items-center justify-between p-5 border-t border-gray-700/50 bg-gray-900/50 backdrop-blur-sm"
+          class="flex flex-col-reverse sm:flex-row items-center justify-between p-5 border-t border-gray-700/50 bg-gray-900/50 backdrop-blur-sm gap-4"
         >
           <div>
             <button
               onclick="skipToWhatsApp(event)"
-              class="text-gray-400 text-sm hover:text-white hover:underline transition-colors flex items-center gap-1.5 mb-2 md:mb-0"
+              class="text-gray-400 text-sm hover:text-white hover:underline transition-colors flex items-center gap-1.5"
             >
-              <i data-lucide="message-circle" class="w-4 h-4"></i>
-              Pular questionário e falar pelo WhatsApp
+              Prefiro só chamar no Zap
             </button>
           </div>
-          <div class="flex gap-3">
-            <button
-              id="prev-btn"
-              onclick="prevStep()"
-              class="bg-gray-600 text-white px-6 py-2.5 rounded-lg font-semibold hover:bg-gray-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-              disabled
-            >
-              Anterior
-            </button>
-            <button
-              id="next-btn"
-              onclick="nextStep()"
-              class="bg-indigo-600 text-white px-6 py-2.5 rounded-lg font-semibold hover:bg-indigo-500 transition-colors"
-            >
-              Próximo
-            </button>
+          <div class="w-full sm:w-auto">
             <button
               id="submit-btn"
               onclick="submitForm()"
-              class="hidden bg-green-600 text-white px-6 py-2.5 rounded-lg font-semibold hover:bg-green-500 transition-colors"
+              class="w-full bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-500 transition-colors flex items-center justify-center gap-2"
             >
-              <i data-lucide="send" class="inline-block w-4 h-4 mr-2"></i>
-              Enviar Detalhes
+              <i data-lucide="send" class="w-4 h-4"></i>
+              Enviar e Chamar no Zap
             </button>
           </div>
         </div>
@@ -1194,9 +547,7 @@
         >
           <i data-lucide="check" class="w-10 h-10 text-white"></i>
         </div>
-        <h3 class="text-2xl font-semibold text-white mb-2">
-          Detalhes Enviados!
-        </h3>
+        <h3 class="text-2xl font-semibold text-white mb-2">Dados Enviados!</h3>
         <p class="text-gray-300 mb-6">
           O seu WhatsApp será aberto para você me enviar os dados.
           <br />Obrigado pelo interesse!
@@ -1223,6 +574,7 @@
       const modal = document.getElementById('briefing-modal');
       const formContainer = modal.querySelector('.bg-gray-900'); // O container do formulário
       const successMessage = document.getElementById('success-message');
+      const form = document.getElementById('briefing-form');
 
       // O NÚMERO DE TELEFONE PARA O QUAL A MENSAGEM SERÁ ENVIADA
       // !! IMPORTANTE: Troque abaixo pelo seu número de WhatsApp !!
@@ -1231,10 +583,13 @@
       function openModal() {
         modal.classList.remove('hidden');
         document.body.style.overflow = 'hidden'; // Impede scroll da página principal
-        // Reseta o formulário para o estado inicial
-        showStep(1);
-        successMessage.classList.add('hidden');
+
+        // Garante que o form esteja visível e o sucesso oculto
         formContainer.classList.remove('hidden');
+        successMessage.classList.add('hidden');
+
+        // Foca no primeiro campo
+        document.getElementById('nome').focus();
       }
 
       function closeModal() {
@@ -1251,176 +606,28 @@
       function skipToWhatsApp(event) {
         event.preventDefault(); // Impede o link de navegar
         const skipMessage =
-          'Olá Juan! Vi sua página da promoção de R$ 120 e gostaria de conversar diretamente, sem preencher o questionário. Podemos falar?';
+          'Olá Juan! Vi sua página da promoção de R$ 120 e gostaria de conversar diretamente. Podemos falar?';
         const encodedMessage = encodeURIComponent(skipMessage);
         const whatsappURL = `https://wa.me/${myWhatsAppNumber}?text=${encodedMessage}`;
         window.open(whatsappURL, '_blank');
         closeModal(); // Fecha o modal se estiver aberto
       }
 
-      // --- LÓGICA DO FORMULÁRIO MULTI-ETAPAS ---
-      let currentStep = 1;
-      const totalSteps = 6;
-      const prevBtn = document.getElementById('prev-btn');
-      const nextBtn = document.getElementById('next-btn');
-      const submitBtn = document.getElementById('submit-btn');
-      const progressBar = document.getElementById('progress-bar');
-      const progressText = document.getElementById('progress-text');
-      const form = document.getElementById('briefing-form');
-
-      function showStep(stepNumber) {
-        // Oculta todas as etapas
-        document.querySelectorAll('.form-step').forEach((step) => {
-          step.classList.remove('active');
-        });
-
-        // Mostra a etapa atual
-        const activeStep = document.getElementById(`step-${stepNumber}`);
-        if (activeStep) {
-          activeStep.classList.add('active');
-        }
-
-        // Atualiza a barra de progresso
-        const progress = (stepNumber / totalSteps) * 100;
-        progressBar.style.width = `${progress}%`;
-        progressText.textContent = `Etapa ${stepNumber} de ${totalSteps}`;
-
-        // Atualiza os botões
-        prevBtn.disabled = stepNumber === 1;
-
-        if (stepNumber === totalSteps) {
-          nextBtn.classList.add('hidden');
-          submitBtn.classList.remove('hidden');
-        } else {
-          nextBtn.classList.remove('hidden');
-          submitBtn.classList.add('hidden');
-        }
-
-        // Foca no primeiro input da etapa
-        const firstInput = activeStep.querySelector('input, textarea, select');
-        if (firstInput) {
-          firstInput.focus();
-        }
-      }
-
-      function nextStep() {
-        if (validateStep(currentStep) && currentStep < totalSteps) {
-          currentStep++;
-          showStep(currentStep);
-        }
-      }
-
-      function prevStep() {
-        if (currentStep > 1) {
-          currentStep--;
-          showStep(currentStep);
-        }
-      }
-
-      function validateStep(stepNumber) {
-        const step = document.getElementById(`step-${stepNumber}`);
-        // Apenas remove classes de erro, caso existam de alguma lógica anterior
-        const requiredInputs = step.querySelectorAll('.border-red-500'); // Procura por inputs marcados como erro
-
-        requiredInputs.forEach((input) => {
-          // Remove erro
-          input.classList.remove(
-            'border-red-500',
-            'focus:border-red-500',
-            'focus:ring-red-500',
-          );
-        });
-
-        // Como nada é obrigatório, sempre retorna true
-        return true;
-      }
-
       // --- LÓGICA DE SUBMISSÃO PARA O WHATSAPP ---
       function submitForm() {
-        // Valida a última etapa antes de enviar
-        if (!validateStep(currentStep)) {
-          return;
-        }
-
-        // O NÚMERO DE TELEFONE PARA O QUAL A MENSAGEM SERÁ ENVIADA
-        // !! IMPORTANTE: Troque abaixo pelo seu número de WhatsApp !!
-        // const myWhatsAppNumber = '5514998276488'; // Movido para o topo do script
+        // Não há validação, pois os campos são opcionais
 
         const formData = new FormData(form);
-        let message = `*🚀 Detalhes do Projeto de Landing Page (Promo R$ 120)*\n\n`;
+        let message = `*🚀 Novo Contato - LP R$ 120*\n\n`;
 
-        // ----- ETAPA 1: BÁSICO -----
-        message += `*1. INFORMAÇÕES BÁSICAS*\n`;
-        message += `Nome da Empresa: ${formData.get('empresa') || 'N/A'}\n`;
-        message += `Nome do Cliente: ${formData.get('nome') || 'N/A'}\n`;
-        message += `WhatsApp Cliente: ${formData.get('whatsapp') || 'N/A'}\n`;
-        message += `E-mail: ${formData.get('email') || 'N/A'}\n`;
-        message += `Produto/Serviço: ${formData.get('produto') || 'N/A'}\n\n`;
-
-        // ----- ETAPA 2: OBJETIVO -----
-        message += `*2. OBJETIVO E CONVERSÃO*\n`;
-        let objetivo = formData.get('objetivo');
-        if (objetivo === 'Outro') {
-          objetivo = `Outro: ${formData.get('objetivo_outro') || 'N/A'}`;
-        }
-        message += `Objetivo Principal: ${objetivo || 'N/A'}\n`;
-        message += `CTA Principal: ${formData.get('cta') || 'N/A'}\n`;
-        message += `Métrica de Sucesso: ${
-          formData.get('sucesso') || 'N/A'
-        }\n\n`;
-
-        // ----- ETAPA 3: PÚBLICO-ALVO -----
-        message += `*3. PÚBLICO-ALVO*\n`;
-        message += `Cliente Ideal: ${formData.get('publico') || 'N/A'}\n`;
-        message += `Dor do Público: ${formData.get('dor') || 'N/A'}\n`;
-        message += `Benefícios da Oferta: ${
-          formData.get('beneficios') || 'N/A'
-        }\n\n`;
-
-        // ----- ETAPA 4: DESIGN -----
-        message += `*4. DESIGN E IDENTIDADE*\n`;
-        message += `Manual de Marca: ${
-          formData.get('manual_marca') || 'N/A'
+        message += `*Nome:* ${formData.get('nome') || 'Não preencheu'}\n`;
+        message += `*WhatsApp:* ${
+          formData.get('whatsapp') || 'Não preencheu'
         }\n`;
-
-        // Pega todos os checkboxes de sensações
-        const sensacoes = Array.from(formData.getAll('sensacoes')).join(', ');
-        message += `Sensações: ${sensacoes || 'N/A'}\n`;
-
-        message += `Referências: ${formData.get('referencias') || 'N/A'}\n`;
-        message += `Concorrentes: ${formData.get('concorrentes') || 'N/A'}\n\n`;
-
-        // ----- ETAPA 5: CONTEÚDO -----
-        message += `*5. CONTEÚDO E ESTRUTURA*\n`;
-        message += `Fornecimento de Conteúdo: ${
-          formData.get('conteudo') || 'N/A'
-        }\n`;
-
-        // Pega todos os checkboxes de seções
-        let secoes = Array.from(formData.getAll('secoes')).join(', ');
-        if (formData.get('secoes_outra')) {
-          secoes += `, Outra: ${formData.get('secoes_outra')}`;
-        }
-        message += `Seções Desejadas: ${secoes || 'N/A'}\n`;
-        message += `Depoimentos: ${formData.get('depoimentos') || 'N/A'}\n\n`;
-
-        // ----- ETAPA 6: TÉCNICO -----
-        message += `*6. DETALHES TÉCNICOS*\n`;
-        message += `Possui Domínio: ${formData.get('dominio') || 'N/A'}\n`;
-        message += `Possui Hospedagem: ${
-          formData.get('hospedagem') || 'N/A'
-        }\n`;
-
-        // Pega todos os checkboxes de integrações
-        let integracoes = Array.from(formData.getAll('integracoes')).join(', ');
-        if (formData.get('integracoes_outra')) {
-          integracoes += `, Outra: ${formData.get('integracoes_outra')}`;
-        }
-        message += `Integrações: ${integracoes || 'N/A'}\n`;
-        message += `Prazo Ideal: ${formData.get('prazo') || 'N/A'}\n\n`;
-
+        message += `*Negócio:* ${formData.get('empresa') || 'Não preencheu'}\n`;
+        message += `*Ideia:* ${formData.get('ideia') || 'Não preencheu'}\n\n`;
         message += `-----------------------------------\n`;
-        message += `Questionário preenchido pelo site.`;
+        message += `Cliente preencheu o formulário rápido.`;
 
         // Codifica a mensagem para URL e abre o WhatsApp
         const encodedMessage = encodeURIComponent(message);
@@ -1434,12 +641,7 @@
 
         // Reseta o formulário
         form.reset();
-        currentStep = 1;
-        // Não precisa chamar showStep(1) aqui, pois o modal será fechado ou mostrará sucesso.
       }
-
-      // Inicia o formulário
-      showStep(currentStep);
     </script>
   </body>
 </html>
